@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_pb_tmpltc",
+  "info": {
+    "displayName": "email: templateconfig",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "templateName": {
+      "type": "string"
+    },
+    "emailSubject": {
+      "type": "string"
+    },
+    "optionalRecipients": {
+      "type": "text"
+    },
+    "emailTemplateString": {
+      "type": "text"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["system", "form"],
+      "default": "system"
+    }
+  }
+}

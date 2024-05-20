@@ -1,0 +1,69 @@
+{
+  "name": "@am-gmbh/pabu-strapi-plugin",
+  "version": "0.0.41",
+  "description": "This is the description of the plugin.",
+  "strapi": {
+    "name": "pabu",
+    "description": "Description of Pabu plugin",
+    "kind": "plugin",
+    "displayName": "Pabu"
+  },
+  "files": [
+    "*"
+  ],
+  "dependencies": {
+    "csso": "5.0.5",
+    "dompurify": "^3.0.8",
+    "file-type": "~16.5.4",
+    "jsdom": "^24.0.0",
+    "prop-types": "^15.7.2",
+    "react-colorful": "5.6.1",
+    "slugify": "^1.6.6",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@strapi/helper-plugin": "^4.14.4",
+    "@strapi/icons": "^1.6.3",
+    "@strapi/typescript-utils": "^4.6.0",
+    "@types/jest": "^29.5.6",
+    "@types/koa": "^2.13.10",
+    "@types/react": "^17.0.53",
+    "@types/react-dom": "^18.0.28",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.34",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6",
+    "ts-jest": "^29.1.1",
+    "typescript": "5.0.4"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.3"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "maintainers": [
+    {
+      "name": "A Strapi developer"
+    }
+  ],
+  "engines": {
+    "node": ">=16.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "develop": "tsc -p tsconfig.server.json -w",
+    "build": "tsc -p tsconfig.server.json",
+    "test": "jest --config jest.config.ts",
+    "admin-develop": "tsc -p tsconfig.json -w",
+    "compile-and-build": "tsc -p tsconfig.server.json && tsc -p tsconfig.json"
+  },
+  "license": "MIT"
+}

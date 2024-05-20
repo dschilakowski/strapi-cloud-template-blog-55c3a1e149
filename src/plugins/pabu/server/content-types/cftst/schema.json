@@ -1,0 +1,102 @@
+
+{
+  "kind": "singleType",
+  "collectionName": "cftsts",
+  "info": {
+    "singularName": "cftst",
+    "pluralName": "cftsts",
+    "displayName": "customFieldTest"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "breakpointsGrouped": {
+      "type": "customField",
+      "customField": "plugin::pabu.grouped-values",
+      "default": {
+        "mobile": "768",
+        "tablet": "1366",
+        "desktop": "2560",
+        "wqhd": "3840"
+      },
+      "dataType": "integer"
+    },
+    "scalingGroupedFloat": {
+      "type": "customField",
+      "customField": "plugin::pabu.grouped-values",
+      "default": {
+        "mobile": 0.5,
+        "tablet": 0.75,
+        "desktop": 1,
+        "wqhd": 1.5
+      },
+      "dataType": "float"
+    },
+    "groupedTest": {
+      "type": "customField",
+      "customField": "plugin::pabu.grouped-values",
+      "default": { "x": "768", "y": "1366" },
+      "fields": ["x", "y"],
+      "fieldLabels": ["customX", "customY"],
+      "dataType": "integer"
+    },
+    "withoutLabels": {
+      "type": "customField",
+      "customField": "plugin::pabu.grouped-values",
+      "default": { "x": "768", "y": "1366" },
+      "fields": ["x", "y"],
+      "dataType": "integer",
+      "inputType": "string"
+    },
+    "withoutFields": {
+      "type": "customField",
+      "customField": "plugin::pabu.grouped-values",
+      "default": { "x": "768", "y": "1366" },
+      "fieldLabels": ["wichtig", "wichtiger", "unwichtig"]
+    },
+    "testInteger1": {
+      "type": "customField",
+      "customField": "plugin::pabu.integer-value",
+      "default": 1,
+      "fieldLabels": ["x", "y", "z"]
+    },
+    "testInteger2": {
+      "type": "customField",
+      "customField": "plugin::pabu.integer-value",
+      "default": 2,
+      "inputType": "string"
+    },
+    "testString1": {
+      "type": "customField",
+      "customField": "plugin::pabu.string-value",
+      "default": "eins"
+    },
+    "testString2": {
+      "type": "customField",
+      "customField": "plugin::pabu.string-value",
+      "default": "1",
+      "inputType": "number"
+    },
+    "testBoolean1": {
+      "type": "customField",
+      "customField": "plugin::pabu.boolean-value",
+      "default": true
+    },
+    "testBoolean2": {
+      "type": "customField",
+      "customField": "plugin::pabu.boolean-value",
+      "default": false
+    },
+    "hasNoLabel1": {
+      "type": "customField",
+      "customField": "plugin::pabu.boolean-value"
+    },
+    "hasALabel1": {
+      "type": "customField",
+      "customField": "plugin::pabu.boolean-value"
+    }
+  }
+}

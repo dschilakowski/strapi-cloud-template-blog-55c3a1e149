@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_pb_cmscfgmdlsrt",
+  "info": {
+    "displayName": "config modal sort",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "contentelementname": {
+      "type": "string"
+    },
+    "sort": {
+      "type": "json",
+      "default": {
+        "tabName1": ["cfgField1", "cfgField2"],
+        "tabName2": ["cfgField3", "cfgField4"]
+      }
+    }
+  }
+}

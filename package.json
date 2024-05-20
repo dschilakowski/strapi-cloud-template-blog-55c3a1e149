@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@am-gmbh/pabu-strapi-plugin": "^0.0.45",
     "@strapi/plugin-cloud": "4.21.1",
     "@strapi/plugin-graphql": "^4.0.5",
     "@strapi/plugin-i18n": "4.21.1",
@@ -22,8 +21,9 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
+    "build": "npm run installComponents && strapi build",
+    "strapi": "strapi",
+    "installComponents": "node src/plugins/pabu/server/components/install.js"
   },
   "author": {
     "name": "A Strapi developer"
