@@ -3,6 +3,7 @@ const { isEmpty, merge } = require("lodash/fp");
 // modified version of https://github.com/Barelydead/strapi-plugin-populate-deep
 
 const getModelPopulationAttributes = (model) => {
+  console.log("getModelPopulationAttributes", model);
   if (model && model.uid === "plugin::upload.file") {
     const { related, ...attributes } = model.attributes;
     return attributes;
