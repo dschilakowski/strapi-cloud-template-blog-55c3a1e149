@@ -21,8 +21,9 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build": "npm run installComponents && strapi build",
+    "build": "npm run preinstall && strapi build",
     "strapi": "strapi",
+    "preinstall": "cd src/plugins/pabu && npm install && node server/components/install.js",
     "installComponents": "node src/plugins/pabu/server/components/install.js"
   },
   "author": {
