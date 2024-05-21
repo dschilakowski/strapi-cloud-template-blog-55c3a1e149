@@ -512,6 +512,12 @@ export interface PluginContentReleasesRelease extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     releasedAt: Attribute.DateTime;
+    scheduledAt: Attribute.DateTime;
+    timezone: Attribute.String;
+    status: Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Attribute.Required;
     actions: Attribute.Relation<
       'plugin::content-releases.release',
       'oneToMany',
@@ -566,6 +572,7 @@ export interface PluginContentReleasesReleaseAction
       'manyToOne',
       'plugin::content-releases.release'
     >;
+    isEntryValid: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -576,6 +583,931 @@ export interface PluginContentReleasesReleaseAction
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::content-releases.release-action',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuPbpage extends Schema.CollectionType {
+  collectionName: 'pbpages';
+  info: {
+    singularName: 'pbpage';
+    pluralName: 'pbpages';
+    displayName: 'pbpages';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    url: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    refId: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    isDraft: Attribute.Boolean & Attribute.DefaultTo<false>;
+    published: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    seoSettings: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hasNavigation: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<true>;
+    hasBreadcrumbs: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    hasFooter: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<true>;
+    isSeoTitlePageTitle: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    canonicalLinkUrl: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    content: Attribute.DynamicZone<
+      [
+        'pb.chdln',
+        'pb.crchtxt',
+        'pb.cbttn',
+        'pb.cfrm',
+        'pb.csprtr',
+        'pb.cspcr',
+        'pb.cgllry',
+        'pb.ctwi',
+        'pb.cmg',
+        'pb.cmgtckr',
+        'pb.ccrsl',
+        'pb.ccrds',
+        'pb.cmltmd',
+        'pb.cccrdn',
+        'pb.csrchrslts'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbpage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbpage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'plugin::pabu.pbpage',
+      'oneToMany',
+      'plugin::pabu.pbpage'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface PluginPabuPbform extends Schema.CollectionType {
+  collectionName: 'pbform';
+  info: {
+    singularName: 'pbform';
+    pluralName: 'pbforms';
+    displayName: 'pbforms';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    mailRecipients: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    mailSubject: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cfgFormSubmitButtonText: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cfgFormBackButtonText: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    fields: Attribute.DynamicZone<
+      [
+        'pb.frmstr',
+        'pb.frmml',
+        'pb.frmbl',
+        'pb.frmtxt',
+        'pb.frmfl',
+        'pb.frmdt',
+        'pb.frmnm'
+      ]
+    > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    cfgWithCaptcha: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    cfgMailTemplate: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<''>;
+    creator: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'plugin::pabu.pbform',
+      'oneToMany',
+      'plugin::pabu.pbform'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface PluginPabuPbformentry extends Schema.CollectionType {
+  collectionName: 'pbformentry';
+  info: {
+    singularName: 'pbformentry';
+    pluralName: 'pbformentries';
+    displayName: 'pbformentry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    formId: Attribute.Integer & Attribute.Required;
+    formCopy: Attribute.JSON;
+    data: Attribute.DynamicZone<
+      [
+        'pb.frmstr',
+        'pb.frmml',
+        'pb.frmbl',
+        'pb.frmtxt',
+        'pb.frmfl',
+        'pb.frmdt',
+        'pb.frmnm'
+      ]
+    >;
+    formDataValues: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbformentry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbformentry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuPbfile extends Schema.CollectionType {
+  collectionName: 'pbfiles';
+  info: {
+    singularName: 'pbfile';
+    pluralName: 'pbfiles';
+    displayName: 'pbfiles';
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    fileId: Attribute.BigInteger &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    alternativeText: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbfile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbfile',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'plugin::pabu.pbfile',
+      'oneToMany',
+      'plugin::pabu.pbfile'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface PluginPabuPbcmssetting extends Schema.SingleType {
+  collectionName: 'pbcmssetting';
+  info: {
+    singularName: 'pbcmssetting';
+    pluralName: 'pbcmssettings';
+    displayName: 'CMS Settings';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    googlerecaptchav2: Attribute.Component<'pb.cmsrcptchv2'> &
+      Attribute.Required;
+    configmodalsettings: Attribute.Component<'pb.cmscfgmdl'> &
+      Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbcmssetting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbcmssetting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuGlbl extends Schema.SingleType {
+  collectionName: 'glbls';
+  info: {
+    singularName: 'glbl';
+    pluralName: 'glbls';
+    displayName: 'global';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    responsive: Attribute.Component<'pb.rspnsvc'> & Attribute.Required;
+    layout: Attribute.Component<'pb.lytc'> & Attribute.Required;
+    navigation: Attribute.Component<'pb.nvgtnc'> & Attribute.Required;
+    footer: Attribute.Component<'pb.ftrc'> & Attribute.Required;
+    seo: Attribute.Component<'pb.sc'> & Attribute.Required;
+    logo: Attribute.Component<'pb.lgc'> & Attribute.Required;
+    forms: Attribute.Component<'pb.frmsc'> & Attribute.Required;
+    search: Attribute.Component<'pb.srchc'> & Attribute.Required;
+    searchresults: Attribute.Component<'pb.srchrsltsc'> & Attribute.Required;
+    multilanguage: Attribute.Component<'pb.mltlnggc'> & Attribute.Required;
+    animation: Attribute.Component<'pb.nmtnc'> & Attribute.Required;
+    scrolling: Attribute.Component<'pb.scrllngc'> & Attribute.Required;
+    scrolltotop: Attribute.Component<'pb.scrllttpc'> & Attribute.Required;
+    captchatype: Attribute.Component<'pb.cptchtpc'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.glbl',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.glbl',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuStr extends Schema.CollectionType {
+  collectionName: 'strs';
+  info: {
+    singularName: 'str';
+    pluralName: 'strs';
+    displayName: 'store';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.CustomField<'plugin::pabu.string-value'>;
+    type: Attribute.String & Attribute.CustomField<'plugin::pabu.string-value'>;
+    struuid: Attribute.String &
+      Attribute.CustomField<'plugin::pabu.string-value'>;
+    setting: Attribute.DynamicZone<
+      [
+        'pb.sclr',
+        'pb.sfnt',
+        'pb.sgglfnt',
+        'pb.stypgrphy',
+        'pb.srchtxt',
+        'pb.sbttn',
+        'pb.slnk',
+        'pb.sbckgrnd',
+        'pb.srrws',
+        'pb.sspcx',
+        'pb.sspcy'
+      ]
+    > &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 1;
+        },
+        number
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.str',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.str',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuCesstr extends Schema.CollectionType {
+  collectionName: 'cesstrs';
+  info: {
+    singularName: 'cesstr';
+    pluralName: 'cesstrs';
+    displayName: 'contentElementSettings';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    name: Attribute.String & Attribute.CustomField<'plugin::pabu.string-value'>;
+    type: Attribute.String & Attribute.CustomField<'plugin::pabu.string-value'>;
+    struuid: Attribute.String &
+      Attribute.CustomField<'plugin::pabu.string-value'>;
+    setting: Attribute.DynamicZone<
+      [
+        'pb.cshdln',
+        'pb.csrchtxt',
+        'pb.csbttn',
+        'pb.csfrm',
+        'pb.cssprtr',
+        'pb.csspcr',
+        'pb.csgllry',
+        'pb.cstwi',
+        'pb.csmg',
+        'pb.csmgtckr',
+        'pb.cscrsl',
+        'pb.csmltmd',
+        'pb.cscrds',
+        'pb.csccrdn'
+      ]
+    > &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 1;
+        },
+        number
+      >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.cesstr',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.cesstr',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuCftst extends Schema.SingleType {
+  collectionName: 'cftsts';
+  info: {
+    singularName: 'cftst';
+    pluralName: 'cftsts';
+    displayName: 'customFieldTest';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    breakpointsGrouped: Attribute.JSON &
+      Attribute.CustomField<'plugin::pabu.grouped-values'> &
+      Attribute.DefaultTo<{
+        mobile: '768';
+        tablet: '1366';
+        desktop: '2560';
+        wqhd: '3840';
+      }>;
+    scalingGroupedFloat: Attribute.JSON &
+      Attribute.CustomField<'plugin::pabu.grouped-values'> &
+      Attribute.DefaultTo<{
+        mobile: 0.5;
+        tablet: 0.75;
+        desktop: 1;
+        wqhd: 1.5;
+      }>;
+    groupedTest: Attribute.JSON &
+      Attribute.CustomField<'plugin::pabu.grouped-values'> &
+      Attribute.DefaultTo<{
+        x: '768';
+        y: '1366';
+      }>;
+    withoutLabels: Attribute.JSON &
+      Attribute.CustomField<'plugin::pabu.grouped-values'> &
+      Attribute.DefaultTo<{
+        x: '768';
+        y: '1366';
+      }>;
+    withoutFields: Attribute.JSON &
+      Attribute.CustomField<'plugin::pabu.grouped-values'> &
+      Attribute.DefaultTo<{
+        x: '768';
+        y: '1366';
+      }>;
+    testInteger1: Attribute.Integer &
+      Attribute.CustomField<'plugin::pabu.integer-value'> &
+      Attribute.DefaultTo<1>;
+    testInteger2: Attribute.Integer &
+      Attribute.CustomField<'plugin::pabu.integer-value'> &
+      Attribute.DefaultTo<2>;
+    testString1: Attribute.String &
+      Attribute.CustomField<'plugin::pabu.string-value'> &
+      Attribute.DefaultTo<'eins'>;
+    testString2: Attribute.String &
+      Attribute.CustomField<'plugin::pabu.string-value'> &
+      Attribute.DefaultTo<'1'>;
+    testBoolean1: Attribute.Boolean &
+      Attribute.CustomField<'plugin::pabu.boolean-value'> &
+      Attribute.DefaultTo<true>;
+    testBoolean2: Attribute.Boolean &
+      Attribute.CustomField<'plugin::pabu.boolean-value'> &
+      Attribute.DefaultTo<false>;
+    hasNoLabel1: Attribute.Boolean &
+      Attribute.CustomField<'plugin::pabu.boolean-value'>;
+    hasALabel1: Attribute.Boolean &
+      Attribute.CustomField<'plugin::pabu.boolean-value'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.cftst',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.cftst',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuCustom extends Schema.SingleType {
+  collectionName: 'customs';
+  info: {
+    singularName: 'custom';
+    pluralName: 'customs';
+    displayName: 'custom';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    css: Attribute.Text &
+      Attribute.CustomField<'plugin::pabu.text-value'> &
+      Attribute.DefaultTo<'/*CustomCSS:*/\n/*You can override generated CSS here or add additional custom styling.*/\n'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.custom',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.custom',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginPabuPbnavigation extends Schema.CollectionType {
+  collectionName: 'pbnavigations';
+  info: {
+    singularName: 'pbnavigation';
+    pluralName: 'pbnavigations';
+    displayName: 'pbnavigation';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    pages: Attribute.DynamicZone<['pb.nvtm']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logoUrl: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logo: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbnavigation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbnavigation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'plugin::pabu.pbnavigation',
+      'oneToMany',
+      'plugin::pabu.pbnavigation'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface PluginPabuPbdynamiclist extends Schema.CollectionType {
+  collectionName: 'pbdynamiclists';
+  info: {
+    singularName: 'pbdynamiclist';
+    pluralName: 'pbdynamiclists';
+    displayName: 'pbdynamiclist';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    content: Attribute.DynamicZone<['pb.lsttem']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbdynamiclist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbdynamiclist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'plugin::pabu.pbdynamiclist',
+      'oneToMany',
+      'plugin::pabu.pbdynamiclist'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface PluginPabuPbemailsetting extends Schema.SingleType {
+  collectionName: 'pbemailsettings';
+  info: {
+    singularName: 'pbemailsetting';
+    pluralName: 'pbemailsettings';
+    displayName: 'pbemailsettings';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    email: Attribute.Component<'pb.mlc'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    template: Attribute.Component<'pb.tmpltc', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pbemailsetting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pbemailsetting',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'plugin::pabu.pbemailsetting',
+      'oneToMany',
+      'plugin::pabu.pbemailsetting'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface PluginPabuPblicense extends Schema.SingleType {
+  collectionName: 'pblicense';
+  info: {
+    singularName: 'pblicense';
+    pluralName: 'pblicenses';
+    displayName: 'PABU license';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    key: Attribute.JSON;
+    license: Attribute.String;
+    lastCheck: Attribute.DateTime;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::pabu.pblicense',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::pabu.pblicense',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
       'oneToOne',
       'admin::user'
     > &
@@ -727,53 +1659,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
       'oneToOne',
       'admin::user'
     > &
@@ -985,10 +1870,24 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::pabu.pbpage': PluginPabuPbpage;
+      'plugin::pabu.pbform': PluginPabuPbform;
+      'plugin::pabu.pbformentry': PluginPabuPbformentry;
+      'plugin::pabu.pbfile': PluginPabuPbfile;
+      'plugin::pabu.pbcmssetting': PluginPabuPbcmssetting;
+      'plugin::pabu.glbl': PluginPabuGlbl;
+      'plugin::pabu.str': PluginPabuStr;
+      'plugin::pabu.cesstr': PluginPabuCesstr;
+      'plugin::pabu.cftst': PluginPabuCftst;
+      'plugin::pabu.custom': PluginPabuCustom;
+      'plugin::pabu.pbnavigation': PluginPabuPbnavigation;
+      'plugin::pabu.pbdynamiclist': PluginPabuPbdynamiclist;
+      'plugin::pabu.pbemailsetting': PluginPabuPbemailsetting;
+      'plugin::pabu.pblicense': PluginPabuPblicense;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;

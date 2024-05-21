@@ -3,7 +3,6 @@ const { isEmpty, merge } = require("lodash/fp");
 // modified version of https://github.com/Barelydead/strapi-plugin-populate-deep
 
 const getModelPopulationAttributes = (model) => {
-  console.log("getModelPopulationAttributes", model);
   if (!model) {
     return {};
   }
@@ -24,7 +23,6 @@ const getFullPopulateObject = (modelUid, maxDepth = 20) => {
 
   const populate = {};
   const model = strapi.getModel(modelUid);
-  console.log("model >> ", model);
   for (const [key, value] of Object.entries(
     getModelPopulationAttributes(model)
   )) {

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_pb_mlc",
+  "info": {
+    "displayName": "email: config",
+    "icon": "mail-bulk",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "fromAddress": {
+      "type": "string"
+    },
+    "replyAddress": {
+      "type": "string"
+    }
+  }
+}
