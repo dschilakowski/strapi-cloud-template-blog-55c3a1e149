@@ -23,7 +23,7 @@
     "start": "strapi start",
     "build": "npm run preinstall && strapi build",
     "strapi": "strapi",
-    "preinstall": "cd src/plugins/pabu && npm install && node server/components/install.js",
+    "preinstall": "cd src/plugins/pabu && npm install && npm build && node server/components/install.js",
     "installComponents": "node src/plugins/pabu/server/components/install.js"
   },
   "author": {
