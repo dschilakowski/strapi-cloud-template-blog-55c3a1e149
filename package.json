@@ -19,11 +19,12 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
+    "develop": "npm run installComponents && strapi develop",
+    "start": "npm run installComponents && strapi start",
     "build": "npm run preinstall && strapi build",
     "strapi": "strapi",
-    "preinstall": "cd src/plugins/pabu && npm install && npm run build && node server/components/install.js"
+    "preinstall": "cd src/plugins/pabu && npm install && npm run build && node server/components/install.js",
+    "installComponents": "node src/plugins/pabu/server/components/install.js"
   },
   "author": {
     "name": "A Strapi developer"
