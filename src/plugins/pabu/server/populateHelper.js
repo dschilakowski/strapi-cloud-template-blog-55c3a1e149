@@ -5,7 +5,7 @@ const { isEmpty, merge } = require("lodash/fp");
 const getModelPopulationAttributes = (model) => {
   console.log("getModelPopulationAttributes", model);
   if (!model) {
-    return;
+    return {};
   }
   if (model && model.uid === "plugin::upload.file") {
     const { related, ...attributes } = model.attributes;
@@ -24,6 +24,7 @@ const getFullPopulateObject = (modelUid, maxDepth = 20) => {
 
   const populate = {};
   const model = strapi.getModel(modelUid);
+  console.log("model >> ", model);
   for (const [key, value] of Object.entries(
     getModelPopulationAttributes(model)
   )) {
