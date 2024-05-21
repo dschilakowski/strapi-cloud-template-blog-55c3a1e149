@@ -4,6 +4,9 @@ const { isEmpty, merge } = require("lodash/fp");
 
 const getModelPopulationAttributes = (model) => {
   console.log("getModelPopulationAttributes", model);
+  if (!model) {
+    return;
+  }
   if (model && model.uid === "plugin::upload.file") {
     const { related, ...attributes } = model.attributes;
     return attributes;
