@@ -4,7 +4,7 @@ import pbEntityService from "./pbEntityService";
 const fs = require("fs-extra");
 
 const getRootFolder = () => {
-  return process.env.NODE_ENV === "development" ? "" : "/strapi/";
+  return process.env.NODE_ENV === "development" ? "" : process.cwd() + "/";
 };
 
 export default {
